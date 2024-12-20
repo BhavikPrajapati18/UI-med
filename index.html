@@ -1,0 +1,179 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>kurla medical</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- header  -->
+
+    <div class="header">
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            class="kurla-icon"
+            src="images/kurla-logo2.png"
+            alt="Kurla Icon"
+          />
+        </a>
+      </div>
+      <nav class="navigation">
+        <a href="index.html" class="nav-link"
+          ><span style="margin-left: 40px">Home</span></a
+        >
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <!-- <p class="login-signup">
+        <a href="login.html">LOGIN</a>/<a href="signup.html">SIGNUP</a>
+      </p> -->
+      <a href="cart.html" class="nav-link">
+        <img
+          class="cart"
+          src="images/Add_a_su_bheading-removebg-preview.png"
+          alt="Cart Icon"
+        />
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <img
+        class="search-image"
+        src="images/background2.png"
+        alt="Background Image"
+      />
+      <input
+        class="search-bar"
+        type="search"
+        placeholder=" &nbsp;Search med... "
+        id="search-input"
+      />
+      <button class="search-button" id="search-button">
+        <img
+          class="search-button-image"
+          src="images/search-icon-dark.png"
+          alt=""
+        />
+      </button>
+    </div>
+
+    <!-- offer section  -->
+    <!-- <a href="products.html"
+      ><div class="shop_now_index">
+        <button class="shop_now">SHOP NOW</button>
+      </div></a
+    > -->
+
+    <!-- Prescription Section -->
+    <div class="prescription">
+      <p class="whatsapp-text">Want to order through a prescription?</p>
+      <button
+        onclick="
+      
+      "
+        class="whatsapp-button"
+      >
+        <img
+          class="whatsapp-icon"
+          src="images/whatsapp.png"
+          alt="WhatsApp Icon"
+        />
+        Chat on WhatsApp
+      </button>
+
+      <img
+        class="prescription-img"
+        src="images/prescription.png"
+        alt="Prescription Image"
+      />
+    </div>
+
+    <!-- last section  -->
+    <div class="last-section">
+      <div class="about">
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; 2023 Kurla Medical. Established in 1998. All rights reserved.
+        </p>
+      </div>
+    </div>
+    <div
+      style="z-index: 1"
+      margin-bottom="0"
+      class="elfsight-app-ddda7ffb-1e5e-4abc-9dfc-21c72ecfc2f9"
+      data-elfsight-app-lazy
+    ></div>
+    <script
+      src="https://static.elfsight.com/platform/platform.js"
+      data-use-service-core
+      defer
+    ></script>
+
+    <script>
+      let products = []; // Initialize the products array
+
+      // Fetch product data from JSON
+      fetch("products.json")
+        .then((response) => response.json())
+        .then((data) => {
+          products = data.Skincare; // Adjust according to your JSON structure
+        })
+        .catch((error) => console.error("Error fetching the products:", error));
+
+      // Function to handle search
+      function handleSearch() {
+        const searchInput = document
+          .getElementById("search-input")
+          .value.toLowerCase();
+        const foundProduct = products.find((product) => {
+          // Ensure product.name and product.description exist before calling toLowerCase
+          const nameMatch =
+            product.name && product.name.toLowerCase().includes(searchInput);
+          const descriptionMatch =
+            product.description &&
+            product.description.toLowerCase().includes(searchInput);
+          return nameMatch || descriptionMatch;
+        });
+
+        // If a product is found, redirect to item.html with the product ID
+        if (foundProduct) {
+          window.location.href = `item.html?id=${foundProduct.id}`;
+        } else {
+          alert("No products found!");
+        }
+      }
+
+      // Attach event listener to search button
+      document
+        .getElementById("search-button")
+        .addEventListener("click", handleSearch);
+
+      // Optionally, allow search on "Enter" key press
+      document
+        .getElementById("search-input")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        });
+    </script>
+  </body>
+</html>

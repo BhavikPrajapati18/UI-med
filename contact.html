@@ -1,0 +1,98 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>kurla medical</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    
+
+  </head>
+  <body>
+    <!-- header  -->
+
+    <div class="header">
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            class="kurla-icon"
+            src="images/kurla-logo2.png"
+            alt="Kurla Icon"
+          />
+        </a>
+      </div>
+      <nav class="navigation">
+        <a href="index.html" class="nav-link"
+          ><span style="margin-left: 40px">Home</span></a
+        >
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <!-- <p class="login-signup">LOGIN / SIGNUP</p> -->
+      <a href="cart.html" class="nav-link">
+        <img
+          class="cart"
+          src="images/Add_a_su_bheading-removebg-preview.png"
+          alt="Cart Icon"
+        />
+      </a>
+    </div>
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-ddda7ffb-1e5e-4abc-9dfc-21c72ecfc2f9" data-elfsight-app-lazy></div>
+
+    <div class="container">
+      <p class="shop-by-catg-text">
+        <span class="shop-title">Contact us</span>
+      </p>
+    
+      <form id="contactForm" class="contact_container">
+        <div class="contact_input">
+          <input placeholder="Full Name" type="text" name="fullName" id="fullName" required>
+          <input placeholder="Email" type="email" name="email" id="email" required>
+          <input placeholder="Phone Number" type="tel" name="phone" id="phone">
+          <input style="height: 120px;" placeholder="Your Message" name="message" id="message" required></input>
+          <button type="submit" class="contact_submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    
+
+    <!-- last section  -->
+    <div class="last-section">
+      <div class="about">
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-info">
+        <p>&copy; 2023 Kurla Medical. Established in 1998. All rights reserved.</p>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('contactForm').addEventListener('submit', 
+      function(event) {
+        event.preventDefault(); // Prevent the default form submission
+      
+        // Show a message
+        alert('Your message has been submitted!');
+      
+        // Clear the form inputs
+        document.getElementById('contactForm').reset();
+      });
+      </script>
+      
+  </body>
+</html>

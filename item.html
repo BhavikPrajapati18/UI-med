@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Kurla Medical</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- header  -->
+    <div class="header">
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            class="kurla-icon"
+            src="images/kurla-logo2.png"
+            alt="Kurla Icon"
+          />
+        </a>
+      </div>
+      <nav class="navigation">
+        <a href="index.html" class="nav-link"
+          ><span style="margin-left: 40px">Home</span></a
+        >
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <!-- <p class="login-signup">LOGIN / SIGNUP</p> -->
+      <!-- Cart Link in the Header -->
+      <a href="cart.html" class="nav-link">
+        <img
+          class="cart"
+          src="images/Add_a_su_bheading-removebg-preview.png"
+          alt="Cart Icon"
+        />
+      </a>
+    </div>
+
+    <!-- Product Detail Section -->
+    <div class="container-product">
+      <div class="container-product-image">
+        <img class="product-image" src="" alt="Product Image" />
+      </div>
+      <div class="container-product-details">
+        <p class="description"></p>
+        <p class="price"></p>
+        <p class="MRP"></p>
+        <div class="Rating-star">
+          <img src="images/star.png" alt="Star Rating" />
+          <img src="images/star.png" alt="Star Rating" />
+          <img src="images/star.png" alt="Star Rating" />
+          <img src="images/star.png" alt="Star Rating" />
+          <img src="images/star.png" alt="Star Rating" />
+        </div>
+        <button class="add-to-cart" data-id="" data-name="" data-price="">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <script
+      src="https://static.elfsight.com/platform/platform.js"
+      data-use-service-core
+      defer
+    ></script>
+    <div
+      class="elfsight-app-ddda7ffb-1e5e-4abc-9dfc-21c72ecfc2f9"
+      data-elfsight-app-lazy
+    ></div>
+
+    <!-- Prescription Section -->
+    <div class="prescription">
+      <p class="whatsapp-text">Want to order through a prescription?</p>
+      <button class="whatsapp-button">
+        <img
+          class="whatsapp-icon"
+          src="images/whatsapp.png"
+          alt="WhatsApp Icon"
+        />
+        Chat on WhatsApp
+      </button>
+      <img
+        class="prescription-img"
+        src="images/prescription.png"
+        alt="Prescription Image"
+      />
+    </div>
+
+    <!-- last section  -->
+    <div class="last-section">
+      <div class="about">
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; 2023 Kurla Medical. Established in 1998. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      let products = []; // Initialize the products array
+      let cart = JSON.parse(localStorage.getItem("cart")) || []; // Retrieve existing cart from localStorage
+
+      // Fetch product data from JSON
+      fetch("products.json")
+        .then((response) => response.json())
+        .then((data) => {
+          products = data.Skincare; // Adjust according to your JSON structure
+          showDetail(); // Call showDetail after products are loaded
+        })
+        .catch((error) => console.error("Error fetching the products:", error));
+
+      // Function to display product details
+      function showDetail() {
+        let productId = new URLSearchParams(window.location.search).get("id");
+        let thisProduct = products.find((product) => product.id == productId);
+
+        if (!thisProduct) {
+          window.location.href = "products.html"; // Redirect if product is not found
+          return;
+        }
+
+        // Populate the HTML with product details
+        document.querySelector(".container-product-image img").src =
+          thisProduct.image;
+        document.querySelector(".description").innerText =
+          thisProduct.description;
+        document.querySelector(".price").innerText = "₹" + thisProduct.price;
+        document.querySelector(".MRP").innerText = "₹" + thisProduct.prv_price;
+
+        // Set the data attributes for the Add to Cart button
+        const addToCartButton = document.querySelector(".add-to-cart");
+        addToCartButton.setAttribute("data-id", thisProduct.id);
+        addToCartButton.setAttribute("data-name", thisProduct.description);
+        addToCartButton.setAttribute("data-price", thisProduct.price);
+      }
+
+      // Attach event listener to the Add to Cart button
+      document.querySelector(".add-to-cart").addEventListener("click", (e) => {
+        const productId = e.target.getAttribute("data-id");
+        const productName = e.target.getAttribute("data-name");
+        const productPrice = e.target.getAttribute("data-price");
+        addToCart(productId, productName, productPrice);
+      });
+
+      // Function to add item to the cart
+      function addToCart(id, name, price) {
+        const existingItem = cart.find((item) => item.id === id);
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({ id, name, price, quantity: 1 });
+        }
+
+        // Save updated cart to localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Item added to cart");
+      }
+
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart")) || [];
+      }
+    </script>
+  </body>
+</html>
